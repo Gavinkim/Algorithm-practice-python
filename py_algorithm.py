@@ -1,6 +1,3 @@
-import random
-
-
 # find same name in name list (linear search)
 def find_same_name(name_list):
     name_list_len = len(name_list)
@@ -199,6 +196,7 @@ def check_palindrome(words):
 
 
 # longest palindrome (abacca)
+# result -> acca
 def longest_palindrome(s):
     # 1
     # return len(s) if s[::-1] == s else max(longest_palindrome(s[:-1]), longest_palindrome(s[1:]))
@@ -221,6 +219,24 @@ def longest_palindrome(s):
 
 
 # find maze
+# maze = {
+#         'a': ['e'],
+#         'b': ['c', 'f'],
+#         'c': ['b', 'd'],
+#         'd': ['c'],
+#         'e': ['a', 'i'],
+#         'f': ['b', 'g', 'j'],
+#         'g': ['f', 'h'],
+#         'h': ['g', 'l'],
+#         'i': ['e', 'm'],
+#         'j': ['n', 'f', 'k'],
+#         'k': ['j', 'o'],
+#         'l': ['h', 'p'],
+#         'm': ['i', 'n'],
+#         'n': ['m', 'j'],
+#         'o': ['k'],
+#         'p': ['l']
+#     }
 def find_maze(maze, start, end):
     remain_queue = []
     added_pos_set = set()
@@ -238,59 +254,201 @@ def find_maze(maze, start, end):
     return "Not found ways"
 
 
-# find middle character in word (if word length  even then middle two word)
+# 'abcde' -> 'c'
+# 'qwer' -> 'we'
 def find_middle_word(words):
+    # 1
+    #     words_len = len(words)
+    #     mid = words_len//2
+    #     if words_len % 2 == 0:
+    #         return words[mid-1:mid+1]
+    #     else:
+    #         return words[mid]
+
+    # 2
     return words[(len(words) - 1)//2:len(words)//2+1]
 
-# def find_middle_word(words):
-#     words_len = len(words)
-#     mid = words_len//2
-#     if words_len % 2 == 0:
-#         return words[mid-1:mid+1]
-#     else:
-#         return words[mid]
+
+# remove_sequence_duplicated_number
+# arr = [1, 1, 3, 3, 0, 1, 1] -> [1, 3, 0, 1]
+# arr = [4, 4, 4, 3, 3] -> [4, 3]
+def remove_sequence_duplicated_number(arr):
+    # 1
+    # result = []
+    # for c in arr:
+    #     if (len(result) == 0) or (result[-1] != c):
+    #         result.append(c)
+    # return result
+
+    # 2
+    return [v for i, v in enumerate(arr) if i == 0 or v != arr[i - 1]]
+
+    # 3
+    # s_list = list()
+    # s_list.append(arr[0])
+    # for i in range(len(arr)):
+    #     if arr[i] == arr[i - 1]:
+    #         continue
+    #     s_list.append(arr[i])
+    # return s_list
+
+    # 4
+    # a = []
+    # for i in arr:
+    #     if a[-1:] == [i]:
+    #         continue
+    #     a.append(i)
+    # return a
+
+    # 5
+    # result = []
+    # for i in range(len(arr)):
+    #     if arr[i - 1] == arr[i]:
+    #         continue
+    #     else:
+    #         result += arr[i]
+    # return result
+
+
+# 12345 -> [5,4,3,2,1]
+def reverse_list(n):
+    # 1
+    # result = []
+    # for i in str(n):
+    #     result.append(int(i))
+    # return result[::-1]
+
+    # 2
+    return list(map(int, reversed(str(n))))
+
+    # 3
+    # return [int(i) for i in str(n)][::-1]
+
+    # 4
+    # a = list(str(n))
+    # a.reverse()
+    # return [int(i) for i in a]
+
+
+# "1234" -> 1234
+# "-1234" -> -1234
+def strToInt(str):
+    # 1
+    # return int(str)
+
+    # 2
+    result = 0
+    if ord(str[0]) > 48:
+        num = -1
+        for i in str:
+            result += (ord(str[num]) - 48) * pow(10, abs(num + 1))
+            num -= 1
+    else:
+        result = -strToInt(str[1:])
+    return result
+
+
+# find str in list
+# ['gavin','james','tom'] -> index of tom 2
+def find_str(n, target):
+    return n.index(target)
+
+
+# two matrix multiply
+# A = [[1,2],[2,3]]
+# B = [[3,4],[5,6]]
+def multiply_matrix(A, B):
+    # 1
+    # return [[sum(a * b for a, b in zip(A_row, B_col)) for B_col in zip(*B)] for A_row in A]
+
+    # 2
+    result = []
+    b_len = len(B)
+    for i in range(len(A)):
+        result.append([])
+        for j in range(len(B[0])):
+            result[i].append(sum(A[i][k] * B[k][j] for k in range(b_len)))
+    return result
+
+
+# 2016-05-24 -> day of weeks?
+def day_of_weeks(year,a,b):
+    import datetime
+    return datetime.date(year, a, b).strftime("%A")[:3].upper()
+
+
+# cesar cryptography
+# AB,1 -> BC
+# z,1 -> a
+# Abrzz,2 -> Cdtbb
+# hint: chr(x) -> chr(65 => 'A'
+# hint: ord(x) -> ord('A') => 65
+def cesar(s, n):
+    # 1
+    # lower = 'abcdefghijklmnopqrstuvwxyz'
+    # upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    # res = ''
+    # for c in s:
+    #     if c in lower:
+    #         res += lower[(lower.index(c) + n) % 26]
+    #     elif c in upper:
+    #         res += upper[(upper.index(c) + n) % 26]
+    #     else:
+    #         res += c
+    # return res
+
+    # 2
+    result = ""
+    for k in s:
+        if k.isalpha():
+            if k.islower():
+                result += chr((ord(k) - ord("a") + n) % 26 + ord("a"))
+            else:
+                result += chr((ord(k) - ord("A") + n) % 26 + ord("A"))
+        else:
+            result += k
+    return result
+
+
+# 2,9 -> { 1, 8 }, { 2, 7 }, { 3, 6 }, { 4, 5 } => {4,5}
+# 2,1 => [-1]
+def best_set(n,s):
+    # 1
+    # if n > s:
+    #     return [-1]
+    # answer = []
+    # avg = s // n
+    # for i in range(n):
+    #     answer.append(avg)
+    # em = s - avg * n
+    # while em > 0:
+    #     for i in range(n):
+    #         if em > 0:
+    #             answer[i] += 1
+    #             em -= 1
+    #         else:
+    #             break
+    # return sorted(answer)
+
+    # 2
+    # hint: (n-s % n) -> '%' operation first than '-' operation
+    # return [s // n] * (n - (s % n)) + [s // n + 1] * (s % n) if n <= s else [-1]
+
+    # 3
+    answer = [s // n] * n
+    if s < n:
+        return [-1]
+    else:
+        for i in range(s % n):
+            answer[i] += 1
+        answer.sort()
+        return answer
 
 
 # main function
 if __name__ == '__main__':
+    import random
     num_list = [random.randint(1,100) for _ in range(10)]
     sorted_num_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     name_list = ["Tome", "Gavin", "James", "Worse", "Tome", "Jack", "Gavin"]
-    maze = {
-        'a': ['e'],
-        'b': ['c', 'f'],
-        'c': ['b', 'd'],
-        'd': ['c'],
-        'e': ['a', 'i'],
-        'f': ['b', 'g', 'j'],
-        'g': ['f', 'h'],
-        'h': ['g', 'l'],
-        'i': ['e', 'm'],
-        'j': ['n', 'f', 'k'],
-        'k': ['j', 'o'],
-        'l': ['h', 'p'],
-        'm': ['i', 'n'],
-        'n': ['m', 'j'],
-        'o': ['k'],
-        'p': ['l']
-    }
-    # print('find same name: {}'.format(find_same_name(name_list)))
-    # print('find same name using dict: {}'.format(find_same_name_use_dic(name_list)))
-    # print('factorial: {}'.format(recursive_factorial(10)))
-    # print('gcd: {}'.format(find_gcd(60,24)))
-    # print('euclidean gcd: {}'.format(find_euclidean_gcd(60,24)))
-    # print('find target num position: {}'.format(find_target_num_pos(num_list,111)))
-    # print('find min pos in number list: {}'.format(find_min_pos(num_list)))
-    # print('find max pos in number list: {}'.format(find_max_pos(num_list)))
-    # print('binary search: {}'.format(binary_search_target_num_pos(sorted_num_list,10)))
-    # print('select sorted:{}'.format(selection_sort_list(num_list)))
-    # print('bubble sorting: {}'.format(bubble_sort(num_list)))
-    # print('insert sorted: {}'.format(insert_sort_list(num_list)))
-    # print('ferma test: {}'.format(prime_number_ferma_test(113)))
-    # print('check prime number: {}'.format(check_prime_number(113)))
-    # print('merge sorting: {}'.format(merge_sort(num_list)))
-    # print('palindrome: {}'.format(check_palindrome("hellolleh")))
-    # print('quick sorting: {}'.format(quick_sort(num_list)))
-    # print(find_maze(maze, "a", "p"))
-    # print(find_middle_word('abcde'))
-    print(longest_palindrome('abacca'))
+    print(best_set(2,9))
