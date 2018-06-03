@@ -54,7 +54,7 @@ def binary_search_target_num_pos(sorted_num_list, target_num):
     return -1  # not found
 
 
-# recurecive factorial number
+# recursive factorial number
 def recursive_factorial(num):
     if num <= 1:  # end condition
         return 1
