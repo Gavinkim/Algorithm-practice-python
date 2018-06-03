@@ -185,10 +185,10 @@ def quick_sort(num_list):
 
 
 # palindrome
-def check_palindrome(sentences):
+def check_palindrome(words):
     str_queue = []
     str_stack = []
-    for str in sentences:
+    for str in words:
         if str.isalpha():  # ignore space, number, special character
             str_queue.append(str.lower())
             str_stack.append(str.lower())
@@ -196,6 +196,28 @@ def check_palindrome(sentences):
         if str_queue.pop(0) != str_stack.pop():
             return False
     return True
+
+
+# longest palindrome (abacca)
+def longest_palindrome(s):
+    # 1
+    # return len(s) if s[::-1] == s else max(longest_palindrome(s[:-1]), longest_palindrome(s[1:]))
+    # ====================================
+    # 2
+    # for i in range(len(s), 0, -1):
+    #     for j in range(len(s) - i + 1):
+    #         print(i, j, s[j:j + i], s[j:j + i][::-1])
+    #         if s[j:j + i] == s[j:j + i][::-1]:  # s[j:j+i][::-1] -> s[j:j+i] to reverse
+    #             return i
+    # ====================================
+    # 3
+    results = []
+    for i in range(len(s)):
+        for j in range(0, i):
+            substr = s[j:i + 1]
+            if substr == substr[::-1]:  # compare chunk and chunk reverse
+                results.append(substr)
+    return len(max(results, key=len))
 
 
 # find maze
@@ -214,6 +236,19 @@ def find_maze(maze, start, end):
                 remain_queue.append(p+' => '+x)
                 added_pos_set.add(x)
     return "Not found ways"
+
+
+# find middle character in word (if word length  even then middle two word)
+def find_middle_word(words):
+    return words[(len(words) - 1)//2:len(words)//2+1]
+
+# def find_middle_word(words):
+#     words_len = len(words)
+#     mid = words_len//2
+#     if words_len % 2 == 0:
+#         return words[mid-1:mid+1]
+#     else:
+#         return words[mid]
 
 
 # main function
@@ -257,3 +292,5 @@ if __name__ == '__main__':
     # print('palindrome: {}'.format(check_palindrome("hellolleh")))
     # print('quick sorting: {}'.format(quick_sort(num_list)))
     # print(find_maze(maze, "a", "p"))
+    # print(find_middle_word('abcde'))
+    print(longest_palindrome('abacca'))
