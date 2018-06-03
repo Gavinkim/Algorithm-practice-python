@@ -215,7 +215,7 @@ def longest_palindrome(s):
     for i in range(len(s)):
         for j in range(0, i):
             substr = s[j:i + 1]
-            if substr == substr[::-1]:  # compare chunk and chunk reverse
+            if substr == substr[::-1]:  # compare substr and substr reverse
                 results.append(substr)
     return len(max(results, key=len))
 
