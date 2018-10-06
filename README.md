@@ -2,6 +2,4 @@
 
 ```bash
     - python algorithm tutorial
-    - refer
-        http://interactivepython.org
 ```
